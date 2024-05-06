@@ -68,7 +68,7 @@
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app, "https://cloudlabtask-f97ef-default-rtdb.europe-west1.firebasedatabase.app/");
+        const database = getDatabase(app, "YOUR_DATABASE_URL");
         const storage = getStorage(app);
 
         const uploadButton = document.getElementById('upload');

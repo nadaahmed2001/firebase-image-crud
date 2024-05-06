@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Firebase CRUD</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <!------------------------------ Realetime Database ----------------------------------->
+    <label>Your ID:</label>
+    <input type="number" id="id" placeholder="Enter your ID">
+    <br>
+    <input type="file" id="imageUpload" multiple>
+    <br>
+    <button id="upload">Upload Images</button>
+    <button id="retrieve">Retrieve Images</button>
+    <div id="imageContainer"></div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getDatabase, ref, set, push, get, child } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+        import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBu_e9y4AjhRfH3-O25p8WA8zm_7uHTMxA",
+            authDomain: "cloudlabtask-f97ef.firebaseapp.com",
+            databaseURL: "https://cloudlabtask-f97ef-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "cloudlabtask-f97ef",
+            storageBucket: "gs://cloudlabtask-f97ef.appspot.com",
+            messagingSenderId: "280306113048",
+            appId: "1:280306113048:web:852e19c5c3d85dedc9016d",
+            measurementId: "G-36Y4QXVKYV"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app, "https://cloudlabtask-f97ef-default-rtdb.europe-west1.firebasedatabase.app/");
+        const storage = getStorage(app);
+
+        const uploadButton = document.getElementById('upload');
+        const retrieveButton = document.getElementById('retrieve');
+        const imageContainer = document.getElementById('imageContainer');
+
+        uploadButton.addEventListener('click', () => {
+            const userId = document.getElementById('id').value;
+            console.log("userId: ", userId); // Debugging 
+
+            const files = document.getElementById('imageUpload').files;
+            console.log("files: ", files); // Debugging
+
+            for (let i = 0; i < files.length; i++) {
+                const imageFile = files[i];
+                console.log("imageFile: ", imageFile); // Debugging
+
+                const storagePath = `images/${userId}/${imageFile.name}`; //path that will be stored in the firebase storage
+                console.log("Storage Path: ", storagePath); // Debugging
+
+
+                //sRef is an alias for the ref function imported from the Firebase Storage module.
+                const imageStorageRef = sRef(storage, storagePath);
+                //The imageStorageRef variable now holds a reference to the specific location in Firebase Storage where the image will be uploaded
+                console.log("Image Storage Ref: ", imageStorageRef); // Debugging
+
+                // Upload image to Firebase Storage
+                uploadBytes(imageStorageRef, imageFile).then((snapshot) => {
+                    console.log('Uploaded a file!', snapshot);
+                    // Get the download URL and store it in the Realtime Database
+                    getDownloadURL(snapshot.ref).then((downloadURL) => { // download URL for a given storage reference.
+                        const imagesRef = ref(database, `users/${userId}/images`); // Use 'ref' from 'firebase-database'
+                        const newImageRef = push(imagesRef); // Use 'push' from 'firebase-database' to generate a unique key
+                        set(newImageRef, downloadURL).then(() => { //save the download URL to the location "newImageRef"
+                            console.log('File URL saved to database!');
+                        });
+                    });
+                });
+            }
+        });
+
+        retrieveButton.addEventListener('click', () => {
+            const userId = document.getElementById('id').value;
+            get(child(ref(database), `users/${userId}/images`)).then((snapshot) => { //Is there any data for the given path?
+                if (snapshot.exists()) {
+                    imageContainer.innerHTML = '';
+                    snapshot.forEach((childSnapshot) => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = childSnapshot.val(); // Get the URL from the snapshot
+                        imgElement.style.width = '200px';
+                        imageContainer.appendChild(imgElement);
+                    });
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+
+</html>

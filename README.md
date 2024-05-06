@@ -23,7 +23,7 @@ This project demonstrates how to integrate Firebase Realtime Database and Fireba
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/firebase-crud.git
+    git clone https://github.com/nadaahmed2001/firebase-image-crud
     ```
 
 2. Open `index.html` in a web browser.

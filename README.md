@@ -42,6 +42,3 @@ Before running the application, ensure you have set up Firebase in your project:
 2. Obtain your Firebase project's configuration object (`firebaseConfig`).
 3. Replace the placeholder values in the `firebaseConfig` object in the HTML file with your Firebase project's configuration.
 
-
-This project was created by [Your Name].
-

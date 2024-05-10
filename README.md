@@ -19,20 +19,20 @@ This project demonstrates how to integrate Firebase Realtime Database and Fireba
 - **CSS**: For basic styling.
 
 ## Usage
-
-1. Clone the repository:
+1. Install Nodejs and Firebase
+2.  Clone the repository:
 
     ```bash
     git clone https://github.com/nadaahmed2001/firebase-image-crud
     ```
 
-2. Open `index.html` in a web browser.
+3. Open `index.html` in a web browser.
 
-3. Enter your ID and select images to upload.
+4. Enter your ID and select images to upload.
 
-4. Click on the "Upload Images" button to upload the selected images.
+5. Click on the "Upload Images" button to upload the selected images.
 
-5. Click on the "Retrieve Images" button to view the uploaded images associated with your ID.
+6. Click on the "Retrieve Images" button to view the uploaded images associated with your ID.
 
 ## Configuration
 

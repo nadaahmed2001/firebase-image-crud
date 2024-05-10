@@ -1,6 +1,6 @@
 # firebase-image-crud
 
-A simple HTML application with Firebase integration for CRUD operations (Create, Read, Update, Delete) with images.
+A simple HTML application with Firebase integration for CRUD operations (Create, Read) with images.
 
 ## Introduction
 

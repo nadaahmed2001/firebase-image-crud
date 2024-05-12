@@ -1,6 +1,6 @@
 # firebase-image-crud
 
-A simple HTML application with Firebase integration for CRUD operations (Create, Read) with images.
+A simple HTML application with Firebase integration for CRUD operations (Create, Read, Update, Delete) with images.
 
 ## Introduction
 
@@ -10,6 +10,7 @@ This project demonstrates how to integrate Firebase Realtime Database and Fireba
 
 - **Upload Images**: Users can upload images along with their ID.
 - **Retrieve Images**: Users can retrieve and view uploaded images based on their ID.
+- **Delete Images**: Users can delete images associated with their ID.
 
 ## Technologies Used
 
@@ -19,8 +20,8 @@ This project demonstrates how to integrate Firebase Realtime Database and Fireba
 - **CSS**: For basic styling.
 
 ## Usage
-1. Install Nodejs and Firebase
-2.  Clone the repository:
+1. Install Nodejs and Firebase.
+2. Clone the repository:
 
     ```bash
     git clone https://github.com/nadaahmed2001/firebase-image-crud
@@ -34,6 +35,8 @@ This project demonstrates how to integrate Firebase Realtime Database and Fireba
 
 6. Click on the "Retrieve Images" button to view the uploaded images associated with your ID.
 
+7. Click on the "Delete User" button to delete all images and data associated with the entered ID.
+
 ## Configuration
 
 Before running the application, ensure you have set up Firebase in your project:
@@ -42,3 +45,8 @@ Before running the application, ensure you have set up Firebase in your project:
 2. Obtain your Firebase project's configuration object (`firebaseConfig`).
 3. Replace the placeholder values in the `firebaseConfig` object in the HTML file with your Firebase project's configuration.
 
+## Hosting
+
+The application is hosted using Firebase Hosting. You can access the hosted application at:
+
+- [Firebase Image CRUD App](https://hostingtask-cec93.web.app/)
